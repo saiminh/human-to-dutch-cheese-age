@@ -1,5 +1,6 @@
 <script>
   export let humanage;
+  let input;
   
   function handlePlusBtnClick() {
     if (!humanage) {
@@ -12,6 +13,7 @@
   function handlePlusBtnHold() {
     let interval = setInterval(handlePlusBtnClick, 200);
     this.addEventListener('mouseup', () => clearInterval(interval));
+    this.addEventListener('touchend', () => clearInterval(interval));
   }
   function handleMinBtnClick() {
     if (humanage > 0) {
@@ -21,16 +23,21 @@
   function handleMinBtnHold() {
     let interval = setInterval(handleMinBtnClick, 200);
     this.addEventListener('mouseup', () => clearInterval(interval));
+    this.addEventListener('touchend', () => clearInterval(interval));
+  }
+  function handleInputFocus() {
+    input.select();
   }
 </script>
 
   <div class="cheeseage-calculator">
     <div class="ageinput">
-      <input type="number" name="age" bind:value={humanage} min="0" max="110">
-      <span class="description">years</span>
+      <span class="description description-pre">I am</span>
+      <input type="number" name="age" bind:value={humanage} bind:this={input} on:click={() => handleInputFocus()} min="0" max="110" pattern="[0-9]*">
+      <span class="description description-post">Human Year{ humanage == 1 ? '' : 's'} Old</span>
       <div class="yearbuttons">
-        <button on:click={handlePlusBtnClick} on:mousedown={handlePlusBtnHold}><span>+</span></button>
-        <button on:click={handleMinBtnClick} on:mousedown={handleMinBtnHold}><span>-</span></button>
+        <button on:click={handlePlusBtnClick} on:mousedown={handlePlusBtnHold} on:touchstart={handlePlusBtnHold}><span>+</span></button>
+        <button on:click={handleMinBtnClick} on:mousedown={handleMinBtnHold} on:touchstart={handleMinBtnHold}><span>-</span></button>
       </div>
     </div>
   </div>
@@ -39,8 +46,14 @@
 
 <style>
   .cheeseage-calculator {
+    --input-height: 125px;
+    --input-width: 150px;
     font-size: 1.75rem;
-    color: rgb(73, 41, 5);
+    background-color: var(--color-brown);
+    color: var(--color-yellow);
+    width: calc(var(--input-width) + var(--input-height) / 2);
+    margin: 0 auto;
+    border-radius: 10px;
   }
   .ageinput {
     display: flex;
@@ -50,75 +63,27 @@
     position: relative;
   } 
   input[type=number] {
-    width: 100%;
-    height: 200px;
+    width: var(--input-width);
+    height: var(--input-height);
     line-height: 1;
-    padding: 0;
+    padding: 0 0 0 0;
     display: inline;
-    font-size: 3.25em;
+    font-size: calc(var(--input-height) / 2);
     text-align: center;
     border-radius: 10px 0 0 10px;
-    border: 2px solid rgb(73, 41, 5);
-    border-width: 4px 2px 4px 4px;
-    background-color: rgba(73, 41, 5, 0);
-    color: rgb(73, 41, 5);
+    color: var(--color-yellow);
+    border: 2px solid;
+    border-width: 0 1px 0 0;
+    background-color: transparent;
     transition: all .3s ease-in-out;
   }
-  .description {
-    position: absolute;
-    font-size: .6em;
-    /* font-weight: 600; */
-    text-transform: uppercase;
-    bottom: .75em;
-    left: calc( 50% - 25px);
-    transform: translate(-50%, 0);
-  }
-  .yearbuttons {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin: 0;
-    vertical-align: bottom;
-  }
-  button {
-    height: 100px;
-    width: 50px;
-    line-height: 100px;
-    display: block;
-    font-size: 1em;
-    cursor: pointer;
-    transition: all .3s ease-out;
-    background-color: transparent;
-    position: relative;
-    text-align: center;
-    background-color: rgba(73, 41, 5, .1);
-    border-radius: 0 10px 0px 0;
-    border: 2px solid rgb(73, 41, 5);
-    border-width: 4px 4px 2px 2px;
-    background-color: rgba(73, 41, 5, 0);
-  }
-  button:last-child {
-    border-radius: 0 0 10px 0;
-    border-width: 2px 4px 4px 2px;
-  }
-  button span {
-    font-weight: 400;
-    position: relative;
-    top: -.125em;
-  }
-  button:active {
-    background-color: rgba(73, 41, 5, .2);
-  }
-  button:active span {
-    font-weight: 600;
-  }
   input[type=number]::selection {
-    background-color: rgba(73, 41, 5, 1);
-    color: yellow;
+    background-color: var(--color-brown);
+    color: var(--color-yellow);
   }
   input[type=number]:focus {
     outline: none;
-    background-color: rgba(73, 41, 5, .2);  
+    /* background-color: rgba(73, 41, 5, .2);   */
   }
   input[type="number"] {
     -webkit-appearance: textfield;
@@ -129,5 +94,65 @@
   input[type=number]::-webkit-outer-spin-button { 
     -webkit-appearance: none;
   }
+  .description {
+    position: absolute;
+    font-size: calc(var(--input-height) / 9);
+    font-weight: bold;
+    bottom: .75em;
+    left: calc( var(--input-width) / 2 );
+    transform: translate(-50%, 0);
+  }
+  .description-pre {
+    bottom: auto;
+    top: .75em;
+  }
+  .yearbuttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    vertical-align: bottom;
+  }
+  button {
+    height: calc(var(--input-height) / 2);
+    width: calc(var(--input-height) / 2);
+    line-height: calc(var(--input-height) / 2);
+    display: block;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all .3s ease-out;
+    background-color: transparent;
+    position: relative;
+    text-align: center;
+    background-color: transparent;
+    color: var(--color-yellow);
+    border: 2px solid;
+    border-radius: 0 10px 0px 0;
+    border-width: 0 0 1px 1px;
+    background-color: rgba(73, 41, 5, 0);
+    padding: 0;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
+  button:last-child {
+    border-radius: 0 0 10px 0;
+    border-width: 1px 0 0 1px;
+  }
+  button span {
+    font-weight: 400;
+    position: relative;
+    top: -.125em;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
+  button:active {
+    background-color: rgba(73, 41, 5, .2);
+  }
+  button:active span {
+    font-weight: 600;
+  }
+  
   
 </style>

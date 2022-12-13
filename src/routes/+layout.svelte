@@ -11,7 +11,7 @@
     font-family:  gopher, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: clamp(14px, 4vw, 20px);
+    font-size: clamp(14px, 4vw, 24px);
     background-color: rgb(255, 207, 14);
     box-sizing: border-box;
   }
@@ -29,10 +29,7 @@
     font-weight: 900;
     font-family:  gopher, sans-serif;
   }
-  :global(p) {
+  /* :global(p) {
     max-width: 32em;
-  }
-  :global(p:first-child) {
-    margin-top: 0;
-  }
+  } */
 </style>

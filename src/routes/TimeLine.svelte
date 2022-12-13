@@ -51,7 +51,7 @@
   .timeline-markers {
     position: relative;
     top: 1em;
-    height: 7em;
+    height: 8em;
     width: calc(100% - 2px);
     z-index: 32;
   }
