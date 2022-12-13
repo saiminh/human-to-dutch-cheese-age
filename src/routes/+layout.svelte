@@ -18,6 +18,9 @@
   :global(body *) {
     box-sizing: inherit;
   }
+  :global(*) {
+    touch-action: manipulation;
+  }
   :global(input) {
     font-family:  gopher, sans-serif;
   }
