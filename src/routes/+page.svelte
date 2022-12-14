@@ -38,7 +38,8 @@ import TimeLine from "./TimeLine.svelte";
                       english: 'Young'
                     },
                     description: '<p>Young, fresh, and full of potential.</p><p>For some people, this is the only cheese they\'ll ever be able to enjoy. Pure, creamy and innocent, in this phase of life you are easy to enjoy, if maybe a little limited and unoriginal.</p> <p>You melt easily. And when you do melt you are a bit rubbery.</p>',
-                    buttontext: 'Tell me more'
+                    buttontext: 'Tell me more',
+                    image: 'illu-jong.png'
                   } , {
                     slug: 'jong-belegen',
                     title: {
@@ -100,7 +101,7 @@ import TimeLine from "./TimeLine.svelte";
   }
 </script>
 
-<div class="page-wrapper">
+<div class="page-wrapper {fullResultIsOpen ? 'result-full-open' : ''}">
   
     <div class="page-content--counter">
       <h2>Check Your Cheese Age</h2>
@@ -114,36 +115,45 @@ import TimeLine from "./TimeLine.svelte";
     <div class="page-content--results">
       <p>{ humanage ? 'Your Dutch Cheese Age is:' : '' }</p>
       <div class="cheeseage-results">
-        {#each cheeseAgeResults as { slug, title, description, buttontext }, i}
+        {#each cheeseAgeResults as { slug, title, buttontext }, i}
           <div class="cheeseage-result cheeseage-result-{i} {slug == cheeseage ? 'current' : ''}">
             <h1>{title.original}<span class="translation">{ cheeseweeks >= 4 ? ' ('+title.english+')' : ''}</span></h1>
             <button on:click={toggleFullResult}>{buttontext}</button>
           </div>
-          <div 
-            class="cheeseage-result-full cheeseage-result-full-{i} {slug == cheeseage ? 'current' : ''} {fullResultIsOpen ? 'open' : ''}"
-            on:click={toggleFullResult}
-            on:keydown={toggleFullResultKeyboard}
-          >
-            <h1>{title.original}<span class="translation">{ cheeseweeks >= 4 ? ' ('+title.english+')' : ''}</span></h1>
-            <div class="cheeseage-result-description">
-              {@html description}
-            </div>
-          </div>
         {/each}
       </div>
     </div>
-  
+    
+    {#each cheeseAgeResults as { slug, title, description, image }, i}
+      <div 
+        class="cheeseage-result-full cheeseage-result-full-{i} {slug == cheeseage ? 'current' : ''} {fullResultIsOpen ? 'open' : ''}"
+        on:click={toggleFullResult}
+        on:keydown={toggleFullResultKeyboard}
+      >
+        <h1>{title.original}<span class="translation">{ cheeseweeks >= 4 ? ' ('+title.english+')' : ''}</span></h1>
+        {#if image}
+          <img src={image} alt={title.original} />
+        {/if}
+        <div class="cheeseage-result-description">
+          {@html description}
+        </div>
+      </div>
+    {/each}
 </div>
 
 
 <style>
   .page-wrapper {
     padding: 1.5rem;
+    margin: 0 auto;
     position: relative;
-    overflow-x: hidden;
+    overflow-x: visible;
     min-height: 100svh;
     display: flex;
     flex-direction: column;
+    max-width: 900px;
+    perspective: 1000px;
+    transform-style: preserve-3d;
   }
   .page-content--counter {
     flex: 15% 0 1;  
@@ -153,6 +163,28 @@ import TimeLine from "./TimeLine.svelte";
   }
   .page-content--results {
     flex: 70% 1 1;
+  }
+  .page-content--counter , 
+  .page-content--timeline ,
+  .page-content--results {
+    transform: translate3d(0, 0, 0);
+    transition: transform .3s ease-out;
+  }
+  .result-full-open .page-content--counter , 
+  .result-full-open .page-content--timeline ,
+  .result-full-open .page-content--results {
+    transform: translate3d(0, 0, -100px);
+  }
+  @keyframes page-zoom-in {
+    0% {
+      transform: translate3d(0, 300px, 0px);
+    }
+    50% {
+      transform: translate3d(0, 150px, -100px);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
   }
   .page-content--results > p {
     margin-bottom: .5em;
@@ -167,12 +199,14 @@ import TimeLine from "./TimeLine.svelte";
     top: 1rem;
     left: 1rem;
     width: calc(100% - 2rem);
-    height: calc(100% - 2rem);
+    height: calc(100vh - 2rem);
+    height: calc(100svh - 2rem);
     border: 2px solid;
     background-color: var(--color-yellow);
     border-radius: 5px;
+    box-shadow: 8px 8px 0 0 var(--color-brown);
     padding: 1rem;
-    z-index: 40;
+    z-index: 40000;
     overflow-x: hidden;
     overflow-y: scroll;
   }
@@ -184,11 +218,33 @@ import TimeLine from "./TimeLine.svelte";
     right: 1rem;
     line-height: 0.5;
     font-size: 4rem;
+    color: var(--color-brown);
     cursor: pointer;
   }
   .cheeseage-result-full.current.open {
     opacity: 1;
     visibility: visible;
+  }
+  .cheeseage-result-full.current.open {
+    opacity: 1;
+    visibility: visible;
+    transform-origin: 50% 100%;
+    animation: result-zoom-in .6s cubic-bezier(.36,.29,.46,1.13) forwards;
+  }
+  @keyframes result-zoom-in {
+    0% {
+      transform: rotateX(-10deg) translate3d(0, 300px, 0px);
+    }
+    /* 50% {
+      transform: translate3d(0, 150px, 50px);
+    } */
+    100% {
+      transform: rotateX(0deg) translate3d(0, 0, 0);
+    }
+  }
+  .cheeseage-result-full h1 {
+    text-align: left;
+    padding-right: 1.5em;
   }
   
   .cheeseage-result {
@@ -199,6 +255,10 @@ import TimeLine from "./TimeLine.svelte";
     border: 2px solid;
     border-radius: 5px;
     padding: 1rem;
+  }
+  .cheeseage-result-3 .translation ,
+  .cheeseage-result-5 .translation {
+    display: block;
   }
   :global(.cheeseage-result-description > p:last-child) {
     margin-bottom: 0;
@@ -231,8 +291,10 @@ import TimeLine from "./TimeLine.svelte";
     font-family:  gopher, sans-serif;
     letter-spacing: -.02em;
     text-align: center;
+    color: var(--color-brown);
   }
   h2 {
+    color: var(--color-brown);
     text-align: center;
     margin: 0 0 .5em 0;
     letter-spacing: -.02em;
@@ -253,27 +315,19 @@ import TimeLine from "./TimeLine.svelte";
     cursor: pointer;
   }
   .translation {
-    font-size: .5em;
+    font-size: .75em;
     font-weight: 400;
     font-family:  gopher, sans-serif;
     letter-spacing: -.02em;
     margin-top: .25em;
-    display: block;
+    display: inline;
   }
-
-  @media (min-width: 900px) {
-    .page-wrapper {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .translation {
-      display: inline;
-      font-size: .75em;
-    }
-    .cheeseage-result-3 .translation ,
-    .cheeseage-result-5 .translation {
-      display: block;
-    }
+  img {
+    width: 100%;
+    height: auto;
+    max-width: 250px;
+    display: block;
+    margin: 1rem auto;
   }
   /* @media (min-width: 900px) {
     .page-wrapper { 

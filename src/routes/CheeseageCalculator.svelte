@@ -76,14 +76,16 @@
     border-width: 0 1px 0 0;
     background-color: transparent;
     transition: all .3s ease-in-out;
+    position: relative;
+    z-index: 4;
   }
   input[type=number]::selection {
-    background-color: var(--color-brown);
+    background-color: rgba(0, 0, 0, 1);
     color: var(--color-yellow);
   }
   input[type=number]:focus {
     outline: none;
-    /* background-color: rgba(73, 41, 5, .2);   */
+    background-color: rgba(0, 0, 0, .2);  
   }
   input[type="number"] {
     -webkit-appearance: textfield;
