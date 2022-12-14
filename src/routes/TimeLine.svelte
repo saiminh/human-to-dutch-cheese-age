@@ -13,6 +13,7 @@
   ];
 
 </script>
+
 <div class="timeline-container">
   <div class="timeline-markers">
     {#each markers as marker, index}
