@@ -72,8 +72,6 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     {#each cheeseAgeResults as { slug, title, description, image }, i}
       <div 
         class="cheeseage-result-full cheeseage-result-full-{i} {slug == cheeseage ? 'current' : ''} {fullResultIsOpen ? 'open' : ''}"
-        on:click={toggleFullResult}
-        on:keydown={toggleFullResultKeyboard}
       >
       <h2 class="cheeseage-result-full-title">{title.original}<span class="translation">({ title.english })</span></h2>
       {#if image}
@@ -82,6 +80,7 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
       <div class="cheeseage-result-description">
         {@html description}
       </div>
+      <button class="cheeseage-result-full-closebtn" on:click={toggleFullResult}>Close</button>
       </div>
     {/each}
   </div>
@@ -111,17 +110,17 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
   }
   .page-wrapper {
     padding: 0 5vw;
-    margin: 1rem;
+    margin: .5rem;
     position: relative;
     overflow-x: visible;
     overflow-y: scroll;
-    min-height: calc(100svh - 2rem);
+    min-height: calc(100svh - 1rem);
     display: flex;
     flex-direction: column;
     perspective: 1000px;
     transform-style: preserve-3d;
     border: 5px solid;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     background-color: #FCF4E9;
   }
   .page-content--header {
@@ -159,16 +158,6 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     width: 100%;
     height: 100%;
   }
-  .cheeseage-result-full:after {
-    content: "\00d7";
-    font-style: normal;
-    font-weight: 300;
-    font-size: 55px;
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    cursor: pointer;
-  }
   .cheeseage-result-title {
     text-align: center;
     font-style: normal;
@@ -176,6 +165,7 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     font-size: 12vw;
     margin: .25em 0 0 0;
     letter-spacing: -0.02em;
+    text-transform: lowercase;
   }
   .cheeseage-result-1 .cheeseage-result-title ,
   .cheeseage-result-5 .cheeseage-result-title {
@@ -209,11 +199,12 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
       font-size: .25em;
     }
   }
-  .cheeseage-result-morebtn {
+  .cheeseage-result-morebtn,
+  .cheeseage-result-full-closebtn {
     background-color: var(--color-yellow);
     color: var(--color-brown);
     display: block;
-    padding: .75em 1.75em;
+    padding: .7em 1.75em;
     margin: 0 auto;
     border: 1px solid;
     border-radius: 40px;
@@ -225,9 +216,22 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     display: block;
     margin: 1em auto;
   }
+  .cheeseage-result-full-closebtn {
+    width: 100%;
+    margin-top: 1.5em;
+    font-size: 5.5vw;
+  }
   @media (min-width: 600px) {
-    .cheeseage-result-morebtn {
+    .cheeseage-result-morebtn,
+    .cheeseage-result-full-closebtn {
       font-size: 2vw;
+      width: auto;
+      min-width: 200px;
+    }
+    .cheeseage-result-full-closebtn {
+      position: absolute;
+      top: 0rem;
+      right: 2.5rem;
     }
   }
   .cheeseage-results-full {
@@ -244,7 +248,7 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
   .cheeseage-results-full.open {
     pointer-events: auto;
   }
-  .cheeseage-result-full {
+  .cheeseage-result-full{
     position: fixed;
     opacity: 0;
     visibility: hidden;
@@ -255,14 +259,14 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     height: calc(100svh - 2rem);
     border: 2px solid;
     background-color: var(--color-yellow);
-    border-radius: 5px;
-    box-shadow: 8px 8px 0 0 var(--color-brown);
+    /* border-radius: 5px; */
+    /* box-shadow: 8px 8px 0 0 var(--color-brown); */
     padding: 1rem;
     z-index: 40000;
     overflow-x: hidden;
     overflow-y: scroll;
     transform-origin: 50% 100%;
-    transform: rotateX(-25deg) translate3d(0, 110%, 0);
+    transform: rotateX(-25deg) translate3d(0, 100vh, 0);
     transition: transform .4s cubic-bezier(.36,.29,.26,1);
   }
   @media (min-width: 600px) {
@@ -272,8 +276,7 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
   }
   .cheeseage-result-full.current {
     opacity: 1;
-    visibility: visible;
-    
+    visibility: visible;  
   }
   .cheeseage-result-full.current.open {
     opacity: 1;
@@ -281,14 +284,14 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     transform: rotateX(0deg) translate3d(0, 0, 0);
     /* animation: result-zoom-in .4s cubic-bezier(.36,.29,.46,1.13) forwards; */
   }
-  @keyframes result-zoom-in {
+  /* @keyframes result-zoom-in {
     0% {
       transform: rotateX(-10deg) translate3d(0, 300px, 0);
     }
     100% {
       transform: rotateX(0deg) translate3d(0, 0, 0);
     }
-  }
+  } */
   .cheeseage-result-full h2 {
     text-align: center;
     padding-bottom: .25em;
@@ -299,6 +302,7 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     letter-spacing: -0.02em;
     margin-top: 0;
     margin-bottom: .5em;
+    text-transform: lowercase;  
   }
   .cheeseage-result-full h2 span {
     /* font-family: 'Times New Roman', Times, serif; */
