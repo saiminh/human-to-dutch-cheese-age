@@ -9,10 +9,10 @@ export const cheeseAgeResults = [ {
 } , {
   slug: 'not-yet',
   title: {
-    original: 'Not a cheese yet!',
-    english: 'Not a cheese yet!'
+    original: 'No cheese yet!',
+    english: 'aka just a sludge of milk, bacteria and acid'
   },
-  description: '<p>But you\'re still a baby, so we\'ll give you a pass.</p><p>Basically at this stage, you are still just a metaphorical sludge of milk, acid and bacteria trying to negotiate your future. The better regulated the environment you are in, the higher your chances of becoming flavourful and fragrant. What happens in this phase is hugely important for the future, but at this stage, you really don\'t have anything to give yet.</p>',
+  description: '<p>Basically at this stage, you are still just a metaphorical sludge of milk, acid and bacteria trying to negotiate your future.</p><p>The better regulated the environment you are in, the higher your chances of becoming flavourful and fragrant. What happens in this phase is hugely important for the future, but at this stage, you really don\'t have anything to give yet.</p><p>Just kick back and let nature do it\'s thing. Grow. Fester. Mold. <strong>Mature</strong>.</p>',
   buttontext: 'Then what am I?'
 } , {
   slug: 'jong',
@@ -29,7 +29,7 @@ export const cheeseAgeResults = [ {
     original: 'Jong belegen',
     english: 'Matured young'
   },
-  description: '<p>This is the shortest age of all. By definition an in-between state. You are neither here nor there. Not young and innocent anymore, but too green to have made a major dent anywhere in life either. But don\'t worry it only lasts 2 years...</p>',
+  description: '<p>This is the shortest age of all. By definition an in-between state. </p><p>You are neither here nor there. Not young and innocent anymore, but too green to have made a major dent anywhere in life either. But don\'t worry it only lasts 2 years...</p>',
   buttontext: 'Tell me more'
 } , {
   slug: 'belegen',
@@ -37,7 +37,7 @@ export const cheeseAgeResults = [ {
     original: 'Belegen',
     english: 'Matured'
   },
-  description: '<p>You have reached a really nice and balanced ratio between water, salt and eggwhites.</p><p>Slowly, the finer details of what makes life exciting become clear. You look back at your earlier years and realize they were merely a lead-up to this. But you also realize there\'s still so much more potential. Don\'t stop now. Don\'t take yourself too serious. You\'ve got a long way to go.</p>',
+  description: '<p>Yes, you have reached a really nice and balanced ratio between water, salt and eggwhites.</p><p>Slowly, the finer details of what makes life exciting become clear. </p><p>You look back at your earlier years and realize they were merely a lead-up to this. But you also discover that there\'s still so much more potential. </p><p>You might think that you know some stuff now, and that you have achieved at least one or two things. But you don\'t and you haven\'t.</p>',
   buttontext: 'Tell me more'
 } , {
   slug: 'extra-belegen',
@@ -45,7 +45,7 @@ export const cheeseAgeResults = [ {
     original: 'Extra Belegen',
     english: 'Extra Matured'
   },
-  description: '<p>In this phase you realize that your appearance is slowly loosing some of its glow and sheen, BUT it\'s totally worth it as while you keep loosing water, you gain flavour. It\'s an exciting process during which you develop more and more finesse, sass and grace while also catching a first glimpse of your own mortality on the horizont.</p>',
+  description: '<p>In this phase you realize that your appearance is slowly loosing some of its glow and sheen.</p><p><strong>But</strong> it\'s totally worth it! Because while you keep losing water, <strong>you will gain flavour and stank!</strong></p><p>It\'s an exciting process during which you develop more and more finesse, sass and even some grace.</p><p>Of course in this phase you will also catch a first glimpse of your own mortality on the horizont.</p>',
   buttontext: 'Tell me more'
 } , {
   slug: 'oud',
@@ -61,7 +61,7 @@ export const cheeseAgeResults = [ {
     original: 'Overjarig',
     english: 'Perennial'
   },
-  description: '<p>You are now a top-shelf cheese. You have hardened quite a bit, oh yes. But salt crystals are also flamboyantly sparkling on your skin and proclaim you are strange, fragrant and full of flavour. And you are ready.</p><p>Enjoy and celebrate yourself. The next (and ultimate) step is purely optional.</p>',
+  description: '<p>You are now a top-shelf cheese.</p><p>You have hardened quite a bit, oh yes.</p><p>But salt crystals are also flamboyantly sparkling on your skin and proclaim you are strange, fragrant and full of flavour. And you are ready. For anything.</p><p>Enjoy and celebrate yourself. The next (and ultimate) step is purely optional.</p>',
   buttontext: 'Tell me more'
 } , {
   slug: 'brokkelkaas', 

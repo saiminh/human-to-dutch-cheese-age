@@ -11,7 +11,7 @@
     }
   }
   function handlePlusBtnHold() {
-    let interval = setInterval(handlePlusBtnClick, 200);
+    let interval = setInterval(handlePlusBtnClick, 100);
     this.addEventListener('mouseup', () => clearInterval(interval));
     this.addEventListener('touchend', () => clearInterval(interval));
   }
@@ -21,7 +21,7 @@
     }
   }
   function handleMinBtnHold() {
-    let interval = setInterval(handleMinBtnClick, 200);
+    let interval = setInterval(handleMinBtnClick, 100);
     this.addEventListener('mouseup', () => clearInterval(interval));
     this.addEventListener('touchend', () => clearInterval(interval));
   }
@@ -30,50 +30,61 @@
   }
 </script>
 
-  <div class="cheeseage-calculator">
-    <div class="ageinput">
-      <span class="description description-pre">I am</span>
-      <input type="number" name="age" bind:value={humanage} bind:this={input} on:click={() => handleInputFocus()} min="0" max="110" pattern="[0-9]*">
-      <span class="description description-post">Human Year{ humanage == 1 ? '' : 's'} Old</span>
-      <div class="yearbuttons">
-        <button on:click={handlePlusBtnClick} on:mousedown={handlePlusBtnHold} on:touchstart={handlePlusBtnHold}><span>+</span></button>
-        <button on:click={handleMinBtnClick} on:mousedown={handleMinBtnHold} on:touchstart={handleMinBtnHold}><span>-</span></button>
-      </div>
+  <div class="cheeseage-input">
+    <input 
+      type="number" 
+      name="age" 
+      bind:value={humanage} 
+      bind:this={input} 
+      on:click={() => handleInputFocus()} 
+      min="0" 
+      max="110" 
+      pattern="[0-9]*"
+    >
+    <div class="yearbuttons">
+      <button on:click={handlePlusBtnClick} on:mousedown={handlePlusBtnHold} on:touchstart={handlePlusBtnHold}><span>+</span></button>
+      <button on:click={handleMinBtnClick} on:mousedown={handleMinBtnHold} on:touchstart={handleMinBtnHold}><span>-</span></button>
     </div>
   </div>
   
   
 
 <style>
-  .cheeseage-calculator {
-    --input-height: 125px;
-    --input-width: 150px;
-    font-size: 1.75rem;
-    background-color: var(--color-brown);
-    color: var(--color-yellow);
+  .cheeseage-input {
+    --input-height: 14vw;
+    --input-width: 18vw;
+    font-size: 1em;
+    color: var(--color-brown);
     width: calc(var(--input-width) + var(--input-height) / 2);
-    margin: 0 auto;
-    border-radius: 10px;
-  }
-  .ageinput {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0;
     position: relative;
-  } 
+    margin: 1rem auto .75rem auto;
+  }
+  @media (min-width: 600px) {
+    .cheeseage-input {
+      --input-height: 4vw;
+      --input-width: 4.5vw;
+      display: inline-flex;
+      margin: 0 .25em;
+    }
+  }
   input[type=number] {
     width: var(--input-width);
     height: var(--input-height);
     line-height: 1;
     padding: 0 0 0 0;
     display: inline;
-    font-size: calc(var(--input-height) / 2);
+    font-family: var(--font-display);
+    font-size: calc(var(--input-height) / 1.5);
+    font-weight: 500;
     text-align: center;
-    border-radius: 10px 0 0 10px;
-    color: var(--color-yellow);
-    border: 2px solid;
-    border-width: 0 1px 0 0;
+    color: var(--color-brown);
+    border: 1px solid;
+    border-right-width: 1px;
+    border-radius: 0;
     background-color: transparent;
     transition: all .3s ease-in-out;
     position: relative;
@@ -96,18 +107,6 @@
   input[type=number]::-webkit-outer-spin-button { 
     -webkit-appearance: none;
   }
-  .description {
-    position: absolute;
-    font-size: calc(var(--input-height) / 9);
-    font-weight: bold;
-    bottom: .75em;
-    left: calc( var(--input-width) / 2 );
-    transform: translate(-50%, 0);
-  }
-  .description-pre {
-    bottom: auto;
-    top: .75em;
-  }
   .yearbuttons {
     display: flex;
     flex-direction: column;
@@ -127,19 +126,17 @@
     position: relative;
     text-align: center;
     background-color: transparent;
-    color: var(--color-yellow);
-    border: 2px solid;
-    border-radius: 0 10px 0px 0;
-    border-width: 0 0 1px 1px;
-    background-color: rgba(73, 41, 5, 0);
+    color: var(--color-brown);
+    border: 1px solid;
+    border-width: 1px 1px .5px 0;
+    background-color: var(--color-yellow);
     padding: 0;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
   }
   button:last-child {
-    border-radius: 0 0 10px 0;
-    border-width: 1px 0 0 1px;
+    border-width: .5px 1px 1px 0;
   }
   button span {
     font-weight: 400;

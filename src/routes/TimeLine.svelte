@@ -31,29 +31,33 @@
   .timeline-container {
     position: relative;
     font-size: clamp(9px, 2.5vw, .9rem);
+    font-family: var(--font-display);
+    /* font-style: normal; */
+    margin-bottom: .66rem;
   }
   .timeline {
     position: relative;
-    height: 1em;
-    background-color: var(--color-yellow);
+    height: 1.5em;
+    /* background-color: var(--color-yellow); */
     border: 2px solid var(--color-brown);
     border-radius: 3px;
   }
   .timeline-fill {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 1px;
+    left: 1px;
     width: 0;
-    max-width: 100%;
-    height: 100%;
-    background-color: var(--color-brown);
+    max-width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    background-color: var(--color-yellow);
     transition: width .2s linear;
   }
   .timeline-markers {
     position: relative;
-    top: 1em;
-    height: 8em;
-    width: calc(100% - 2px);
+    top: 1.5em;
+    height: 6em;
+    left: 2px;
+    width: calc(100% - 6px);
     z-index: 32;
   }
   .timeline-marker:not(:last-child) {
@@ -61,7 +65,7 @@
     bottom: 0%;
     left: 0px;
     width: 1px;
-    height: 1.5em;
+    height: 2em;
     background-color: var(--color-brown);
   }
   .timeline-marker:nth-child(2) {
@@ -72,7 +76,7 @@
       height: 3em;
     }
     .timeline-marker:nth-child(2) {
-      height: 2.5em;
+      height: 2.75em;
     }
   }
   
@@ -89,7 +93,7 @@
     position: absolute;
     bottom: 0%;
     width: 1px;
-    height: 1.5em;
+    height: 2em;
     background-color: var(--color-brown);
   }
   .timeline-marker:last-child .timeline-marker-name {

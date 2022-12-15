@@ -6,7 +6,7 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
 
   let humanage = 0;
   $: cheeseweeks = humanage * 0.88;
-  $: cheeseage =  !cheeseweeks ? 'none' :
+  $: cheeseage =  !cheeseweeks ? 'not-yet' :
                   cheeseweeks < 4 ? 'not-yet' : 
                   cheeseweeks <= 8 ? 'jong' : 
                   cheeseweeks <= 10 ? 'jong-belegen' : 
@@ -46,44 +46,45 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
 
 <div class="page-wrapper {fullResultIsOpen ? 'result-full-open' : ''}">
   
-    <div class="page-content--counter">
-      <h2>Check Your Cheese Age</h2>
-      <CheeseageCalculator bind:humanage={humanage} />
-    </div>
+    <!-- <div class="page-content--header">
+      <h1 class="page-title">What's your <span>Dutch Cheese Age?</span></h1>
+    </div> -->
 
     <div class="page-content--timeline">
+      <h2 class="age-intro">Ever wonder what <strong>Dutch Cheese Age</strong> you are with your <CheeseageCalculator bind:humanage={humanage} /> human years?  Well, you are:</h2>
       <TimeLine bind:timelinefill={percentage} />
     </div>
+
     
     <div class="page-content--results">
-      <p>{ humanage ? 'Your Dutch Cheese Age is:' : '' }</p>
+      <!-- <p>{ humanage ? 'Your Dutch Cheese Age is:' : '' }</p> -->
       <div class="cheeseage-results">
         {#each cheeseAgeResults as { slug, title, buttontext }, i}
           <div class="cheeseage-result cheeseage-result-{i} {slug == cheeseage ? 'current' : ''}">
-            <h1>{title.original}<span class="translation">{ cheeseweeks >= 4 ? ' ('+title.english+')' : ''}</span></h1>
-            <button on:click={toggleFullResult}>{buttontext}</button>
+            <h2 class="cheeseage-result-title">{title.original}<span class="translation">({ title.english })</span></h2>
+            <button class="cheeseage-result-morebtn" on:click={toggleFullResult}>{buttontext}</button>
           </div>
         {/each}
       </div>
     </div>
-    <div class="cheeseage-results-full {fullResultIsOpen ? 'open' : ''}">
-      {#each cheeseAgeResults as { slug, title, description, image }, i}
-        <div 
-          class="cheeseage-result-full cheeseage-result-full-{i} {slug == cheeseage ? 'current' : ''} {fullResultIsOpen ? 'open' : ''}"
-          on:click={toggleFullResult}
-          on:keydown={toggleFullResultKeyboard}
-        >
-        <h1>{title.original}<span class="translation">{ cheeseweeks >= 4 ? ' ('+title.english+')' : ''}</span></h1>
-        <div class="cheeseage-result-description">
-          {@html description}
-        </div>
-        {#if image}
-          <img src={image} alt={title.original} />
-        {/if}
-        </div>
-      {/each}
-    </div>
-</div>
+  </div>
+  <div class="cheeseage-results-full {fullResultIsOpen ? 'open' : ''}">
+    {#each cheeseAgeResults as { slug, title, description, image }, i}
+      <div 
+        class="cheeseage-result-full cheeseage-result-full-{i} {slug == cheeseage ? 'current' : ''} {fullResultIsOpen ? 'open' : ''}"
+        on:click={toggleFullResult}
+        on:keydown={toggleFullResultKeyboard}
+      >
+      <h2 class="cheeseage-result-full-title">{title.original}<span class="translation">({ title.english })</span></h2>
+      {#if image}
+        <img src={image} alt={title.original} />
+      {/if}
+      <div class="cheeseage-result-description">
+        {@html description}
+      </div>
+      </div>
+    {/each}
+  </div>
 
 
 <style>
@@ -109,18 +110,21 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     }
   }
   .page-wrapper {
-    padding: 1.5rem;
-    margin: 0 auto;
+    padding: 0 5vw;
+    margin: 1rem;
     position: relative;
     overflow-x: visible;
-    min-height: 100svh;
+    overflow-y: scroll;
+    min-height: calc(100svh - 2rem);
     display: flex;
     flex-direction: column;
-    max-width: 900px;
     perspective: 1000px;
     transform-style: preserve-3d;
+    border: 5px solid;
+    border-radius: 10px;
+    background-color: #FCF4E9;
   }
-  .page-content--counter {
+  .page-content--header {
     flex: 15% 0 1;  
   }
   .page-content--timeline {
@@ -129,29 +133,106 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
   .page-content--results {
     flex: 70% 1 1;
   }
-  .page-content--counter , 
+  .page-content--header , 
   .page-content--timeline ,
   .page-content--results {
+    position: relative;
     transform-origin: 50% 50%;
     transform: translate3d(0, 0, 0) rotateX(0deg);
     transition: transform .3s ease-out;
   }
-  .result-full-open .page-content--counter , 
+  .result-full-open .page-content--header , 
   .result-full-open .page-content--timeline ,
   .result-full-open .page-content--results {
     transform: translate3d(0, 0, -100px) rotateX(10deg);
     transition: transform .2s ease-in-out;
   }
-  .page-content--results > p {
-    margin-bottom: .5em;
-  }
   .cheeseage-results {
-    position: relative;
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 1.5rem);
   } 
+  .cheeseage-result {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+  }
+  .cheeseage-result-full:after {
+    content: "\00d7";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 55px;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    cursor: pointer;
+  }
+  .cheeseage-result-title {
+    text-align: center;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 12vw;
+    margin: .25em 0 0 0;
+    letter-spacing: -0.02em;
+  }
+  .cheeseage-result-1 .cheeseage-result-title ,
+  .cheeseage-result-5 .cheeseage-result-title {
+    font-size: 11vw;
+  }
+  .cheeseage-result-7 .cheeseage-result-title {
+    font-size: 15vw;
+  }
+  .cheeseage-result-6 .cheeseage-result-title ,
+  .cheeseage-result-4 .cheeseage-result-title ,
+  .cheeseage-result-2 .cheeseage-result-title {
+    font-size: 18vw;
+  }
+  @media (min-width: 600px) {
+    .cheeseage-result-7 .cheeseage-result-title ,
+    .cheeseage-result-6 .cheeseage-result-title ,
+    .cheeseage-result-4 .cheeseage-result-title ,
+    .cheeseage-result-2 .cheeseage-result-title {
+      font-size: 13vw;
+    }
+  }
+  .cheeseage-result .translation {
+    display: block;
+    font-size: .5em;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0;
+  }
+  @media (min-width: 600px) {
+    .cheeseage-result .translation {
+      font-size: .25em;
+    }
+  }
+  .cheeseage-result-morebtn {
+    background-color: var(--color-yellow);
+    color: var(--color-brown);
+    display: block;
+    padding: .75em 1.75em;
+    margin: 0 auto;
+    border: 1px solid;
+    border-radius: 40px;
+    font-family: var(--font-display);
+    font-size: 4vw;
+    font-weight: 500;
+    letter-spacing: -.0125em;
+    cursor: pointer;
+    display: block;
+    margin: 1em auto;
+  }
+  @media (min-width: 600px) {
+    .cheeseage-result-morebtn {
+      font-size: 2vw;
+    }
+  }
   .cheeseage-results-full {
     position: fixed;
     width: 100vw;
-    max-width: 900px;
     height: 100vh;
     top:0;
     left: 0;
@@ -184,6 +265,11 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     transform: rotateX(-25deg) translate3d(0, 110%, 0);
     transition: transform .4s cubic-bezier(.36,.29,.26,1);
   }
+  @media (min-width: 600px) {
+    .cheeseage-result-full {
+      padding: 2rem;
+    }
+  }
   .cheeseage-result-full.current {
     opacity: 1;
     visibility: visible;
@@ -203,39 +289,57 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
       transform: rotateX(0deg) translate3d(0, 0, 0);
     }
   }
-  .cheeseage-result-full h1 {
-    text-align: left;
-    padding-right: 1.5em;
-    padding-top: 0;
-    position: sticky;
-    top: 0;
-    /* background-color: var(--color-yellow); */
-    background-image: linear-gradient(to bottom, var(--color-yellow) 70%, rgba(255, 191, 14, 0) 100%);
+  .cheeseage-result-full h2 {
+    text-align: center;
+    padding-bottom: .25em;
+    border-bottom: 1px solid;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 10vw;
+    letter-spacing: -0.02em;
+    margin-top: 0;
+    margin-bottom: .5em;
   }
-  .cheeseage-result-full h1:after {
-    content: "\00d7";
-    font-family: 'Times New Roman', Times, serif;
-    position: absolute;
-    top: 1rem;
-    right: 2rem;
-    line-height: 0.5;
-    font-size: 4rem;
-    color: var(--color-brown);
-    cursor: pointer;
-  }
-  
-  .cheeseage-result {
-    position: absolute;
-    opacity: 0;
-    visibility: hidden;
-    width: 100%;
-    border: 2px solid;
-    border-radius: 5px;
-    padding: 1rem;
-  }
-  .cheeseage-result-3 .translation ,
-  .cheeseage-result-5 .translation {
+  .cheeseage-result-full h2 span {
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-style: italic;
+    font-weight: 500;
+    font-size: .5em;
+    letter-spacing: -0.02em;
     display: block;
+  }
+  .cheeseage-result-full img {
+    width: 100%;
+    height: auto;
+    max-width: 460px;
+    display: block;
+    margin: 1rem auto;
+  }
+  @media (min-width: 600px) {
+    .cheeseage-result-full img {
+      float: left;
+      width: 50%;
+      margin-right: 1em;
+    }
+    .cheeseage-result-full img + .cheeseage-result-description {
+      width: 50%;
+      float: left;
+    }
+  }
+  .cheeseage-result-description {
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    font-size: 5vw;
+  }
+  @media (min-width: 600px) {
+    .cheeseage-result-full h2 {
+      font-size: 6vw;
+    }
+    .cheeseage-result-description {
+      font-size: 1.75rem;
+    }
   }
   :global(.cheeseage-result-description > p:last-child) {
     margin-bottom: 0;
@@ -259,76 +363,53 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     0%   { opacity: 0; }
     100% { opacity: 1; }
   }
-  h1 {
-    margin: -1rem -1rem 0 -1rem;
-    padding: .45em;
-    font-size: clamp(20px, 9vw, 5rem);
-    font-weight: 600;
-    line-height: 1;
-    font-family:  gopher, sans-serif;
-    letter-spacing: -.02em;
-    text-align: center;
-    color: var(--color-brown);
-  }
-  h2 {
-    color: var(--color-brown);
-    text-align: center;
-    margin: 0 0 .5em 0;
-    letter-spacing: -.02em;
-    line-height: 1.2;
-  }
-  button {
-    background-color: var(--color-brown);
-    color: var(--color-yellow);
-    display: block;
-    padding: .75em 3em;
-    margin: 0 auto;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.25rem;
-    font-family: gopher, sans-serif;
-    font-weight: bold;
-    letter-spacing: -.0125em;
-    cursor: pointer;
-  }
-  .translation {
-    font-size: .75em;
+  
+  .page-title {
+    margin: 0 auto .5em auto;
+    padding: .75em 0 0 0;
+    font-size: 5.5vw;
     font-weight: 400;
-    font-family:  gopher, sans-serif;
+    font-style: italic;
+    line-height: 1.5;
     letter-spacing: -.02em;
-    margin-top: .25em;
-    display: inline;
+    text-align: center;
+    color: var(--color-brown);
   }
-  img {
-    width: 100%;
-    height: auto;
-    max-width: 460px;
+  .page-title span {
+    font-weight: 800;
+    font-style: normal;
     display: block;
-    margin: 1rem auto;
+    font-size: 1.5em;
+    line-height: 1;
   }
-  /* @media (min-width: 900px) {
-    .page-wrapper { 
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      grid-template-rows: 1fr 3fr;
+  @media (min-width: 600px) {
+    .page-title {
+      font-size: clamp(24px, 3vw, 5rem);
+      line-height: 1;
     }
-    .page-content--counter {
-      grid-column: 1 / 1;
-      grid-row: 1 / 4;
+    .page-title span {
+      font-size: 1em;
+      display: inline;
     }
-    .page-content--timeline {
-      grid-column: 2 / 2;
-      grid-row: 1 / 1;
+  }
+  .age-intro {
+    color: var(--color-brown);
+    text-align: center;
+    margin: 1em 0 0 0;
+    line-height: 1.2;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-style: italic;
+    font-size: 5.5vw;
+  }
+  .age-intro strong {
+    font-weight: 900;
+    font-style: normal;
+  }
+  @media (min-width: 600px) {
+    .age-intro {
+      font-size: clamp(16px, 2vw, 4rem);
     }
-    .page-content--results {
-      grid-column: 2 / 2;
-      grid-row: 2 / 3;
-    }
-    h1 {
-       text-align: left;
-    }
-    h2 {
-      text-align: left;
-    }
-  } */
+  }
+  
 </style>
