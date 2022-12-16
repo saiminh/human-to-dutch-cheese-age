@@ -29,7 +29,7 @@ export const cheeseAgeResults = [ {
     original: 'Jong belegen',
     english: 'Matured young'
   },
-  description: '<p>This is the shortest age of all. By definition an in-between state. </p><p>You are neither here nor there. Not young and innocent anymore, but too green to have made a major dent anywhere in life either. But don\'t worry it only lasts 2 years...</p>',
+  description: '<p>This is the shortest age of all. By definition an in-between state. </p><p>You are neither here nor there. Not young and innocent anymore, but still too green to have made a major dent anywhere in life.</p><p>Don\'t worry it only lasts 2 years...</p>',
   buttontext: 'Tell me more'
 } , {
   slug: 'belegen',
@@ -37,7 +37,7 @@ export const cheeseAgeResults = [ {
     original: 'Belegen',
     english: 'Matured'
   },
-  description: '<p>Yes, you have reached a really nice and balanced ratio between water, salt and eggwhites.</p><p>Slowly, the finer details of what makes life exciting become clear. </p><p>You look back at your earlier years and realize they were merely a lead-up to this. But you also discover that there\'s still so much more potential. </p><p>You might think that you know some stuff now, and that you have achieved at least one or two things. But you don\'t and you haven\'t.</p>',
+  description: '<p>Yes, you have reached a really nice and balanced ratio between water, salt and eggwhites.</p><p>Slowly, the finer details of what makes life exciting become clear. </p><p>You look back at your earlier years and realize they were merely a lead-up to this. But you also discover that there\'s still so much more potential. </p><p>You might think that you know some stuff now, and that you have achieved at least one or two things. But you don\'t and you haven\'t.</p><p>Keep going, it\'ll get even better!</p>',
   buttontext: 'Tell me more'
 } , {
   slug: 'extra-belegen',
@@ -61,7 +61,7 @@ export const cheeseAgeResults = [ {
     original: 'Overjarig',
     english: 'Perennial'
   },
-  description: '<p>You are now a top-shelf cheese.</p><p>You have hardened quite a bit, oh yes.</p><p>But salt crystals are also flamboyantly sparkling on your skin and proclaim you are strange, fragrant and full of flavour. And you are ready. For anything.</p><p>Enjoy and celebrate yourself. The next (and ultimate) step is purely optional.</p>',
+  description: '<p>As a top-shelf cheese you have hardened quite a bit, oh yes. Getting to the top takes its toll. But!</p><p>Salt crystals are flamboyantly sparkling on your skin and proclaim you are strange, fragrant and full of flavour. And you are ready. For anything.</p><p>Enjoy and celebrate yourself. The next (and ultimate) step is purely optional.</p>',
   buttontext: 'Tell me more'
 } , {
   slug: 'brokkelkaas', 
