@@ -96,7 +96,6 @@
   }
   input[type=number]:focus {
     outline: none;
-    background-color: rgba(0, 0, 0, .2);  
   }
   input[type="number"] {
     -webkit-appearance: textfield;
@@ -122,10 +121,8 @@
     font-size: 1em;
     cursor: pointer;
     transition: all .3s ease-out;
-    background-color: transparent;
     position: relative;
     text-align: center;
-    background-color: transparent;
     color: var(--color-brown);
     border: 1px solid;
     border-width: 1px 1px .5px 0;
@@ -147,7 +144,7 @@
     user-select: none; /* Standard syntax */
   }
   button:active {
-    background-color: rgba(73, 41, 5, .2);
+    background-color: #e6962f;
   }
   button:active span {
     font-weight: 600;

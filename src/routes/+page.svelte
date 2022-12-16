@@ -313,16 +313,18 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     display: block;
   }
   .cheeseage-result-full img {
-    width: 100%;
-    height: auto;
+    width: 50svh;
+    height: 50svh;
     max-width: 460px;
     display: block;
     margin: 1rem auto;
+    filter: invert(10%) sepia(10%) saturate(4629%) hue-rotate(352deg) brightness(95%) contrast(95%);
   }
   @media (min-width: 600px) {
     .cheeseage-result-full img {
       float: left;
       width: 50%;
+      height: auto;
       margin-right: 1em;
     }
     .cheeseage-result-full img + .cheeseage-result-description {
