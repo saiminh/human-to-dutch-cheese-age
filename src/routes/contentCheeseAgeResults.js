@@ -75,7 +75,7 @@ export const cheeseAgeResults = [ {
     original: 'Brokkelkaas',
     english: 'Crumble Cheese'
   },
-  description: '<p>You are very dry and very salty now.</p><p>While your body cracks and parts fall off spontaneously, you have reached peak flavour. There\'s very few like you, but the impact you can have with a small contribution is immense. There\'s certainly no way anyone is going to try and slice you now.</p>',
+  description: '<p>You are very dry and very salty now.</p><p>While your body cracks and parts fall off spontaneously, you have reached peak flavour. There\'s very few like you, but the impact you can have with a small contribution is immense.</p><p>There\'s certainly no way anyone is going to try and slice you or wrap you in ordinary plastic and sell you out for cheap now.</p>',
   buttontext: 'Tell me more',
   image: 'illu-brokkelkaas.png'
 } ];
