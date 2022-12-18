@@ -88,13 +88,14 @@
       left: 0;
       top: calc(100% + 8px);
       width: 100%;
+      min-width: 8em; 
       height: auto ;
     }
     .helper:after {
       content: '';
       position: absolute;
       top: 0;
-      left: 50%;
+      left: 1.5em;
       width: 0;
       height: 0;
       border: 4px solid transparent;
