@@ -46,33 +46,27 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
 
 <div class="page-wrapper {fullResultIsOpen ? 'result-full-open' : ''}">
   
-    <!-- <div class="page-content--header">
-      <h1 class="page-title">What's your <span>Dutch Cheese Age?</span></h1>
-    </div> -->
-
-    <div class="page-content--timeline">
-      <h2 class="age-intro">Ever wonder what <strong>Dutch Cheese Age</strong> you are with your <CheeseageCalculator bind:humanage={humanage} /> human years?  Well, you are:</h2>
-      <TimeLine bind:timelinefill={percentage} />
-    </div>
-
-    
-    <div class="page-content--results">
-      <!-- <p>{ humanage ? 'Your Dutch Cheese Age is:' : '' }</p> -->
-      <div class="cheeseage-results">
-        {#each cheeseAgeResults as { slug, title, buttontext }, i}
-          <div class="cheeseage-result cheeseage-result-{i} {slug == cheeseage ? 'current' : ''}">
-            <h2 class="cheeseage-result-title">{title.original}<span class="translation">({ title.english })</span></h2>
-            <button class="cheeseage-result-morebtn" on:click={toggleFullResult}>{buttontext}</button>
-          </div>
-        {/each}
-      </div>
+  <div class="page-content--timeline">
+    <h2 class="age-intro">Ever wonder what <strong>Dutch Cheese Age</strong> you are with your <CheeseageCalculator bind:humanage={humanage} /> human years?  Well, you are:</h2>
+    <TimeLine bind:timelinefill={percentage} />
+  </div>
+  
+  <div class="page-content--results">
+    <div class="cheeseage-results">
+      {#each cheeseAgeResults as { slug, title, buttontext }, i}
+        <div class="cheeseage-result cheeseage-result-{i} {slug == cheeseage ? 'current' : ''}">
+          <h2 class="cheeseage-result-title">{title.original}<span class="translation">({ title.english })</span></h2>
+          <button class="cheeseage-result-morebtn" on:click={toggleFullResult}>{buttontext}</button>
+        </div>
+      {/each}
     </div>
   </div>
-  <div class="cheeseage-results-full {fullResultIsOpen ? 'open' : ''}">
-    {#each cheeseAgeResults as { slug, title, description, image }, i}
-      <div 
-        class="cheeseage-result-full cheeseage-result-full-{i} {slug == cheeseage ? 'current' : ''} {fullResultIsOpen ? 'open' : ''}"
-      >
+
+</div>
+
+<div class="cheeseage-results-full {fullResultIsOpen ? 'open' : ''}">
+  {#each cheeseAgeResults as { slug, title, description, image }, i}
+    <div class="cheeseage-result-full cheeseage-result-full-{i} {slug == cheeseage ? 'current' : ''} {fullResultIsOpen ? 'open' : ''}">
       <h2 class="cheeseage-result-full-title">{title.original}<span class="translation">({ title.english })</span></h2>
       {#if image}
         <img src={image} alt={title.original} />
@@ -81,9 +75,9 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
         {@html description}
       </div>
       <button class="cheeseage-result-full-closebtn" on:click={toggleFullResult}>Close</button>
-      </div>
-    {/each}
-  </div>
+    </div>
+  {/each}
+</div>
 
 
 <style>

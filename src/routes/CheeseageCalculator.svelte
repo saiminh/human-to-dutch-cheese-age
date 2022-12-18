@@ -45,11 +45,75 @@
       <button on:click={handlePlusBtnClick} on:mousedown={handlePlusBtnHold} on:touchstart={handlePlusBtnHold}><span>+</span></button>
       <button on:click={handleMinBtnClick} on:mousedown={handleMinBtnHold} on:touchstart={handleMinBtnHold}><span>-</span></button>
     </div>
+    {#if !humanage}
+      <div class="helper">Enter your age here, then check result below</div>
+    {/if}
   </div>
   
   
 
 <style>
+  .helper {
+    position: absolute;
+    display: flex;
+    font-size: 13px;
+    padding: .25em;
+    right: calc(100% + 8px);
+    width: 8em;
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    background-color: var(--color-yellow);
+    border-radius: 3px;
+    animation: helperin 0.3s 1s cubic-bezier(.79,0,.49,1.28) both;
+  }
+  .helper:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 0;
+    height: 0;
+    border: 4px solid transparent;
+    border-left-color: var(--color-yellow);
+    margin-top: -4px;
+  }
+  @media (min-width: 600px) {
+    .helper {
+      right: 0;
+      left: 0;
+      top: calc(100% + 8px);
+      width: 100%;
+      height: auto ;
+    }
+    .helper:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border: 4px solid transparent;
+      border-left-color: transparent;
+      border-bottom-color: var(--color-yellow);
+      margin-top: -8px;
+      margin-left: -4px;
+    }
+  }
+  @keyframes helperin {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   .cheeseage-input {
     --input-height: 14vw;
     --input-width: 18vw;
