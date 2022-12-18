@@ -4,7 +4,7 @@
   :global(:root){
     --color-yellow: rgb(255, 191, 14);
     --color-brown: rgb(48, 28, 9);
-    --font-copy : quiche-text, sans-serif;
+    --font-copy : quiche-text, serif;
     --font-display : scotch-display, serif;
   }
   :global(body) {
