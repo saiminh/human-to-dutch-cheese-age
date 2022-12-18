@@ -314,10 +314,10 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     margin: 1rem auto;
     filter: invert(10%) sepia(10%) saturate(4629%) hue-rotate(352deg) brightness(95%) contrast(95%);
   }
-  @media (min-width: 600px) {
+  @media (min-width: 800px) {
     .cheeseage-result-full img {
       float: left;
-      width: 50%;
+      width: calc(50% - 1em);
       height: auto;
       margin-right: 1em;
     }
@@ -338,7 +338,7 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
       font-size: 6vw;
     }
     .cheeseage-result-description {
-      font-size: 1.75rem;
+      font-size: clamp(16px, 2.5vw, 1.75rem);
     }
   }
   :global(.cheeseage-result-description > p:last-child) {
