@@ -82,7 +82,7 @@ import Logo from './Logo.svelte';
 </div>
 
 
-<div class="logo {focused ? 'hide-on-touch' : ''}">
+<div class="logo {focused ? 'hide-on-touch' : ''}{fullResultIsOpen ? 'hide-on-touch' : ''}">
   <Logo />
 </div>
 
