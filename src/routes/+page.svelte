@@ -249,6 +249,7 @@ import Logo from './Logo.svelte';
     perspective: 1000px;
     transform-style: preserve-3d;
     pointer-events: none;
+    z-index: 10;
   }
   .cheeseage-results-full.open {
     pointer-events: auto;
