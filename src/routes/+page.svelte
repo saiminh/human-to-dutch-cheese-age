@@ -3,6 +3,7 @@ import { onMount } from 'svelte';
 import CheeseageCalculator from "./CheeseageCalculator.svelte";
 import TimeLine from "./TimeLine.svelte";
 import { cheeseAgeResults } from './contentCheeseAgeResults.js';
+import Logo from './Logo.svelte';
 
   let humanage = 0;
   $: cheeseweeks = humanage * 0.88;
@@ -78,6 +79,8 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
     </div>
   {/each}
 </div>
+
+<Logo />
 
 
 <style>
