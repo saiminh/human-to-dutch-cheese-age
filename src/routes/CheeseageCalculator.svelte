@@ -1,5 +1,6 @@
 <script>
   export let humanage;
+  export let focused;
   let input;
   
   function handlePlusBtnClick() {
@@ -27,6 +28,7 @@
   }
   function handleInputFocus() {
     input.select();
+    focused = true;
   }
 </script>
 
@@ -37,6 +39,7 @@
       bind:value={humanage} 
       bind:this={input} 
       on:click={() => handleInputFocus()} 
+      on:blur={() => focused = false}
       min="0" 
       max="110" 
       pattern="[0-9]*"

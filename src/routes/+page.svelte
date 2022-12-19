@@ -6,6 +6,7 @@ import { cheeseAgeResults } from './contentCheeseAgeResults.js';
 import Logo from './Logo.svelte';
 
   let humanage = 0;
+  let focused = false;
   $: cheeseweeks = humanage * 0.88;
   $: cheeseage =  !cheeseweeks ? 'not-yet' :
                   cheeseweeks < 4 ? 'not-yet' : 
@@ -48,7 +49,7 @@ import Logo from './Logo.svelte';
 <div class="page-wrapper {fullResultIsOpen ? 'result-full-open' : ''}">
   
   <div class="page-content--timeline">
-    <h2 class="age-intro">Ever wonder what <strong>Dutch Cheese Age</strong> you are with your <CheeseageCalculator bind:humanage={humanage} /> human years?  Well, you are:</h2>
+    <h2 class="age-intro">Ever wonder what <strong>Dutch Cheese Age</strong> you are with your <CheeseageCalculator bind:humanage={humanage} bind:focused={focused} /> human years?  Well, you are:</h2>
     <TimeLine bind:timelinefill={percentage} />
   </div>
   
@@ -80,10 +81,17 @@ import Logo from './Logo.svelte';
   {/each}
 </div>
 
-<Logo />
 
+<div class="logo {focused ? 'hide-on-touch' : ''}">
+  <Logo />
+</div>
 
 <style>
+  @media (pointer: coarse){
+    .hide-on-touch {
+      display: none;
+    }
+  }
   :global(.splash){
     position: fixed;
     width: 50px;
